@@ -1,0 +1,122 @@
+#+title: Assignment 2 - Grading
+
+* Fixes
+** Show all the predicates
+   Commented all the lines with a ~#show~ declaration,
+   #+begin_src fish
+     sed --in-place '.bak' 's/^#show/%#show/' assignments/**/*.lp
+   #+end_src
+
+* Grading
+  Get the commit hash
+  #+begin_src fish
+    for d in assignments/*/
+      if test -d $d/.git
+        pushd $d
+        git rev-parse HEAD > info_commit.txt
+        popd
+      end
+    end
+  #+end_src
+
+  Run the tests,
+  #+begin_src fish
+    ./grade.fish assignments/tarea-2-2021-2-$GITHUB_USER
+  #+end_src
+
+  Compute the grades,
+  #+begin_src fish
+    ./collect_grades.py assignments/tarea-2-2021-2-$GITHUB_USER
+  #+end_src
+
+  View the grades on [[./full_report.json]],
+  #+begin_src fish
+    jq '.[] | {user: .github_user, scores: .scores}' full_report.json
+  #+end_src
+
+* Judge
+** Testing procedure
+   There's a problem-specific validator that runs multiple ASP programs with
+   ~clingo~ to test the implementation. It reports simplified models and issues
+   with them, if any.
+
+   Models are computed for composite ASP programs,
+   - Assignment-specific files:
+    - generic base files, if any. e.g: ~planning/strips.lp~
+    - problem-specific model. e.g: ~csat/dep_hell/dh.lp~, ~planning/coffee/coffee.lp~
+   - Common test files:
+    - instance file. e.g: [[./tests/csat/dep_hell/instances/2/instance.lp]]
+    - test file. e.g: [[./tests/csat/dep_hell/instances/0/pos-0.lp]]
+      - There's positive tests, which are expected to need models, and negative
+        test, which are expected to make the program unsatisfiable.
+
+** Scoring
+   Problems get partial score for every passed instance. Each instance must pass
+   all positive and negative tests to pass.
+
+   There's a script that calls the validator with the right configuration to run
+   all the tests, [[./grade.fish]], which outputs the test execution results, and a
+   small program that computes grades from the execution outputs,
+   [[./collect_grades.py]]. This separation is meant to allow re-generating full
+   reports without re-executing all the tests again.
+
+* Tests
+** Constraint satisfaction
+*** Dependency Hell
+    [[./dh.py]]
+    
+    - [[./tests/csat/dep_hell/instances/0/instance.lp]]
+    - [[./tests/csat/dep_hell/instances/1/instance.lp]]
+    - [[./tests/csat/dep_hell/instances/2/instance.lp]]
+    - [[./tests/csat/dep_hell/instances/3/instance.lp]]
+    - [[./tests/csat/dep_hell/instances/4/instance.lp]]
+    - [[./tests/csat/dep_hell/instances/5/instance.lp]]
+    - [[./tests/csat/dep_hell/instances/6/instance.lp]]
+
+** Planning
+*** Statues
+    [[./statues.py]]
+
+    - [[./tests/planning/statues/instances/0/instance.lp]]
+    - [[./tests/planning/statues/instances/1/instance.lp]]
+    - [[./tests/planning/statues/instances/2/instance.lp]]
+    - [[./tests/planning/statues/instances/3/instance.lp]]
+    - [[./tests/planning/statues/instances/4/instance.lp]]
+
+*** Blocks
+    [[./blocks.py]]
+
+    - [[./tests/planning/blocks/simple/instances/0/instance.lp]]
+    - [[./tests/planning/blocks/simple/instances/1/instance.lp]]
+    - [[./tests/planning/blocks/simple/instances/2/instance.lp]]
+    - [[./tests/planning/blocks/simple/instances/3/instance.lp]]
+    - [[./tests/planning/blocks/simple/instances/4/instance.lp]]
+
+*** Blocks multi-agent
+    [[./blocks.py]]
+
+    - [[./tests/planning/blocks/multi/instances/0/instance.lp]]
+    - [[./tests/planning/blocks/multi/instances/1/instance.lp]]
+    - [[./tests/planning/blocks/multi/instances/2/instance.lp]]
+    - [[./tests/planning/blocks/multi/instances/3/instance.lp]]
+    - [[./tests/planning/blocks/multi/instances/4/instance.lp]]
+
+*** Coffee
+    [[./coffee.py]]
+
+    There's no public tests for this problem.
+    - [[./tests/planning/coffee/simple/instances/1/instance.lp]]
+    - [[./tests/planning/coffee/simple/instances/2/instance.lp]]
+    - [[./tests/planning/coffee/simple/instances/3/instance.lp]]
+    - [[./tests/planning/coffee/simple/instances/4/instance.lp]]
+    - [[./tests/planning/coffee/simple/instances/5/instance.lp]]
+
+*** Coffee multi-agent
+    [[./coffee.py]]
+
+    There's no public tests for this problem.
+    - [[./tests/planning/coffee/multi/instances/1/instance.lp]]
+    - [[./tests/planning/coffee/multi/instances/2/instance.lp]]
+    - [[./tests/planning/coffee/multi/instances/3/instance.lp]]
+    - [[./tests/planning/coffee/multi/instances/4/instance.lp]]
+    - [[./tests/planning/coffee/multi/instances/5/instance.lp]]

@@ -1,0 +1,10 @@
+% Dependency hell Public test
+
+program( echo
+       ; cat
+       ; ls).
+version(libc, 0).
+version(libc, 1).
+version(libc, 2).
+version(libc, 3).
+
