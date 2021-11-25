@@ -64,39 +64,42 @@ SCORES = {
     # - Single-agent
     # - [1] Modele el mundo de bloques de forma de poder resolver instancias
     #       como esta
-    "blocks-simple-0.json": Decimal("0.1"),
-    "blocks-simple-1.json": Decimal("0.2"),
-    "blocks-simple-2.json": Decimal("0.2"),
-    "blocks-simple-3.json": Decimal("0.2"),
-    "blocks-simple-4.json": Decimal("0.3"),
+    "blocks-simple-sussman.json": Decimal("0.1"),
+    "blocks-simple-move-0.json": Decimal("0.1"),
+    "blocks-simple-move-1.json": Decimal("0.1"),
+    "blocks-simple-seq-0.json": Decimal("0.2"),
+    "blocks-simple-concurrent-0.json": Decimal("0.3"),
     # - Multi-agent
     # - [1] Si un robot tuviese varios brazos que puedan operar en paralelo y
     #       sin chocar podríamos pensar que son 2 agentes que colaboran para
     #       lograr un objetivo común.
     #       Implemente una versión para multiples brazos que pueda resolver
     #       instancias como esta.
-    "blocks-multi-0.json": Decimal("0.1"),
-    "blocks-multi-1.json": Decimal("0.2"),
-    "blocks-multi-2.json": Decimal("0.2"),
-    "blocks-multi-3.json": Decimal("0.2"),
-    "blocks-multi-4.json": Decimal("0.3"),
+    "blocks-multi-move-0.json": Decimal("0.1"),
+    "blocks-multi-seq-0.json": Decimal("0.2"),
+    "blocks-multi-seq-1.json": Decimal("0.2"),
+    "blocks-multi-parallel-0.json": Decimal("0.2"),
+    "blocks-multi-parallel-1.json": Decimal("0.3"),
     # Coffee
     # ------
     # - Single-agent
     # - [1.5] Solucione el problema de repartir café.
-    "coffee-single-0.json": Decimal("0.1"),
-    "coffee-single-1.json": Decimal("0.2"),
-    "coffee-single-2.json": Decimal("0.3"),
-    "coffee-single-3.json": Decimal("0.3"),
-    "coffee-single-4.json": Decimal("0.3"),
-    "coffee-single-5.json": Decimal("0.3"),
+    "coffee-single-move-0.json": Decimal("0.2"),
+    "coffee-single-delivery-0.json": Decimal("0.2"),
+    "coffee-single-delivery-1.json": Decimal("0.2"),
+    "coffee-single-delivery-2.json": Decimal("0.3"),
+    "coffee-single-delivery-3.json": Decimal("0.3"),
+    "coffee-single-delivery-4.json": Decimal("0.3"),
     # - Multi-agent
     # - [1] Muestre que su solución también funciona para varios agentes al
     #       extender ~agentAt(Room)~ y ~has(Drink)~.
-    "coffee-multi-0.json": Decimal("0.1"),
-    "coffee-multi-1.json": Decimal("0.2"),
-    "coffee-multi-2.json": Decimal("0.3"),
-    "coffee-multi-3.json": Decimal("0.4"),
+    "coffee-multi-implicit_doors.json": Decimal("0.05"),
+    "coffee-multi-move-0.json": Decimal("0.05"),
+    "coffee-multi-move-1.json": Decimal("0.1"),
+    "coffee-multi-move-2.json": Decimal("0.1"),
+    "coffee-multi-delivery-0.json": Decimal("0.2"),
+    "coffee-multi-delivery-1.json": Decimal("0.2"),
+    "coffee-multi-delivery-2.json": Decimal("0.3"),
 }
 
 
