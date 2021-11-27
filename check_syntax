@@ -1,0 +1,21 @@
+#!/usr/bin/env fish
+
+function syntax_check
+    clingo --time-limit=5 $argv[2..-1] &> /dev/null
+    if test $status = 65
+        echo ""
+        echo "$argv[1]: Syntax errors found"
+        clingo --time-limit=5 $argv[2..-1] > /dev/null
+    end
+end
+
+for a in $argv
+    set -l hw (basename $a | sed 's#tarea-2-2021-2-##')
+
+    syntax_check $hw $a/csat/dep_hell/dh.lp \
+        $a/planning/statues/statues.lp \
+        $a/planning/blocks/blocks.lp \
+        $a/planning/blocks/blocks-multiagent.lp \
+        $a/planning/coffee/coffee.lp \
+        $a/planning/coffee/coffee-multiagent.lp
+end

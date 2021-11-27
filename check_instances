@@ -1,0 +1,16 @@
+#!/usr/bin/env fish
+
+for a in $argv
+    rg --with-filename '^ *program\( *[a-z]+' $a/csat/dep_hell/dh.lp
+    rg --with-filename '^ *version\( *[a-z]+' $a/csat/dep_hell/dh.lp
+
+    rg --with-filename '^ *isRed\( *[a-z0-9]+' $a/planning/statues/statues.lp
+
+    # (BTW, tables are not blocks, but I guess that `:-exec(T, move(table, B))` could work)
+    rg --with-filename '^ *block\( *[a-z]+' $a/planning/blocks/blocks.lp
+    rg --with-filename '^ *block\( *[a-z]+' $a/planning/blocks/blocks-multiagent.lp
+
+    rg --with-filename '^ *connected\( *[a-z]+' $a/planning/coffee/coffee.lp
+    rg --with-filename '^ *connected\( *[a-z]+' $a/planning/coffee/coffee-multiagent.lp
+end
+
