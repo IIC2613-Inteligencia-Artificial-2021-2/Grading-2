@@ -35,9 +35,11 @@ class Room:
         self.drinks: Set[Drink] = set()
         self.neighbors: Set[Room] = set()
 
+
 class Office(Room):
     def __init__(self, name):
         super().__init__(name)
+
 
 class Kitchen(Room):
     def __init__(self, name):
@@ -54,12 +56,10 @@ class Door:
         pass
 
 
-
 class Agent:
     def __init__(self, name):
         self.name = name
         self.drinks: Set[Drink] = set()
-
 
 
 class CoffeeValidator(StripsValidator):

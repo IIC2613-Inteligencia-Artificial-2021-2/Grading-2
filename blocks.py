@@ -96,7 +96,6 @@ class BlocksValidator(StripsValidator):
                 b = m.group("b")
                 on[a] = b
 
-
         for t, instant_plan in enumerate(self.plan):
             # Check
             moves = dict()
@@ -120,14 +119,18 @@ class BlocksValidator(StripsValidator):
                                     agent, action, t
                                 ),
                             )
-                           )
+                        )
                     elif (m := A_MOVE.search(action.args)) is not None:
                         a = m.group("src")
                         b = m.group("dst")
                         moves[a] = b
                         check_safe_move(t, agent, a, b, on, logs)
                     else:
-                        raise Exception("`move/2` should be the only action. Can't parse '{}'".format(action))
+                        raise Exception(
+                            "`move/2` should be the only action. Can't parse '{}'".format(
+                                action
+                            )
+                        )
 
             # Check independence of actions at this instant
             destinations = [b for _a, b in moves.items()]
@@ -163,7 +166,6 @@ class BlocksValidator(StripsValidator):
                 assert a != "table"
 
         return logs
-
 
 
 class BlocksWorldInstance(judge.Instance):
