@@ -1,4 +1,5 @@
 %                                                |
+%                                                |
 %                                         |---|  |
 %                                         | a |  |
 %                                         |---|  |
@@ -11,10 +12,34 @@
 %  | a | | b | (...) | i | | j |          | j |  |
 % ------------------------------------------------
 
-%%% k=8
-%%% MODELS=2
+block( a
+     ; b
+     ; c
+     ; d
+     ; e
+     ; f
+     ; g
+     ; h
+     ; i
+     ; j).
 
-arm( a0
-   ; a1).
+start( on(a, table)
+     ; on(b, table)
+     ; on(c, table)
+     ; on(d, table)
+     ; on(e, table)
+     ; on(f, table)
+     ; on(g, table)
+     ; on(h, table)
+     ; on(i, table)
+     ; on(j, table)).
 
-% Open solution without enough time.
+goal( on(a, b)
+    ; on(b, c)
+    ; on(c, d)
+    ; on(d, e)
+    ; on(e, f)
+    ; on(f, g)
+    ; on(g, h)
+    ; on(h, i)
+    ; on(i, j)).

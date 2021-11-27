@@ -168,8 +168,5 @@ class StripsValidator(Validator):
 
     def instance_summary(self, sep=", "):
         return "Plan: [{}]".format(
-            sep.join([
-                "{}: {}".format(t, str(i_p))
-                for t, i_p in enumerate(self.plan)
-            ]),
+            sep.join(["{}: {}".format(t, str(i_p)) for t, i_p in enumerate(self.plan)]),
         )

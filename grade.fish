@@ -12,13 +12,10 @@ end
 function grade
   echo "  * Grading"
 
-  # TODO: Avoid touching the existing results
-  rm -rf $argv/test_results
-  set_color red
-  echo "    - WARNING: Removing old test results while developing"
-  set_color normal
-  # TODO: Avoid touching the existing results
-
+  # rm -rf $argv/test_results
+  # set_color red
+  # echo "    - WARNING: Removing old test results while developing"
+  # set_color normal
 
   if test -d $argv/test_results
     echo "    - Test result directory exists, not touching it..."

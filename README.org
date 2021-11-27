@@ -4,13 +4,33 @@
 ** Show all the predicates
    Commented all the lines with a ~#show~ declaration,
    #+begin_src fish
-     sed --in-place '.bak' 's/^#show/%#show/' assignments/**/*.lp
+     sed --in-place '.bak' 's/^#show/%#show/' assignments/tarea-2-2021-2-$GITHUB_USER/*.lp
+   #+end_src
+
+* Issues
+** Find hardcoded instances
+   Some assignments hardcode specific instances into the problem models, making
+   them hard to reuse. Fixing this requires manual work, but it's simple to do.
+
+   These are signs that there's hardcoded instances. Some partially hardcoded
+   instances might still be around, but it's unlikely.
+
+   #+begin_src fish
+     ./check_instances assignments/tarea-2-2021-2-$GITHUB_USER
+   #+end_src
+
+** Find syntax errors
+   These are really bad sign. No attempt to fix them was made as it requires too
+   much involvement.
+
+   #+begin_src fish
+     ./check_syntax assignments/tarea-2-2021-2-$GITHUB_USER
    #+end_src
 
 * Grading
   Get the commit hash
   #+begin_src fish
-    for d in assignments/*/
+    for d in assignments/tarea-2-2021-2-$GITHUB_USER
       if test -d $d/.git
         pushd $d
         git rev-parse HEAD > info_commit.txt
@@ -36,7 +56,7 @@
 
 * Judge
 ** Testing procedure
-   There's a problem-specific validator that runs multiple ASP programs with
+   There's a problem-specific validator that runs multiple ASP instances with
    ~clingo~ to test the implementation. It reports simplified models and issues
    with them, if any.
 
@@ -50,6 +70,34 @@
       - There's positive tests, which are expected to need models, and negative
         test, which are expected to make the program unsatisfiable.
 
+*** Individual judging
+    The judge runs ~clingo~ and produces human-friendly output.
+
+    #+begin_src fish
+      time ./grade.fish assignments/tarea-2-2021-2-$GITHUB_USER
+    #+end_src
+
+*** Batch judging
+    The judge runs ~clingo~ in it's default single-core mode, which makes
+    parallelizing the runs fair, and uses an external ~20s~ timeout on each run,
+    which ensures that the resource usage remains reasonably bounded.
+
+    #+begin_src fish
+      time find assignments/ -maxdepth '1' -type d | parallel ./grade.fish
+    #+end_src
+
+*** Inspecting runs
+    A under ~assignments/tarea-2-2021-2-$GITHUB_USER/test_results/failed/~
+    extensive output is stored,
+
+    #+begin_src fish
+      jq \
+        --color-output \
+       '.' \
+       assignments/tarea-2-2021-2-$GITHUB_USER/test_results/failed/$PROBLEM.json \
+       | less -r
+    #+end_src
+
 ** Scoring
    Problems get partial score for every passed instance. Each instance must pass
    all positive and negative tests to pass.
@@ -59,6 +107,28 @@
    small program that computes grades from the execution outputs,
    [[./collect_grades.py]]. This separation is meant to allow re-generating full
    reports without re-executing all the tests again.
+
+*** Scores
+    A ~report.json~ file is written to each assignment directory.
+    It can be queried
+
+    #+begin_src fish
+      # Summary 
+      jq '{github_user, commit, passed_tests, failed_tests, total_score, scores}' assignments/tarea-2-2021-2-$GITHUB_USER/report.json
+
+      # Problems (using `less` as the pager)
+      jq --color-output '.test_data' assignments/tarea-2-2021-2-$GITHUB_USER/report.json | less -r
+
+      # All
+      jq --color-output '.' assignments/tarea-2-2021-2-$GITHUB_USER/report.json | less -r
+    #+end_src
+
+*** Statistics
+    A ~summary.json~ output is written with multiple statistics per problem,
+
+    #+begin_src fish
+      jq 'map_values({zeroes, median, deciles})' summary.json
+    #+end_src
 
 * Tests
 ** Constraint satisfaction

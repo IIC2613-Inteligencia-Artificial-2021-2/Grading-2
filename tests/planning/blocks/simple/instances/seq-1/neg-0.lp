@@ -1,5 +1,5 @@
 
-%%% k=3
+%%% k=8
 %%% MODELS=1
 
 % Open solution, but not enough time

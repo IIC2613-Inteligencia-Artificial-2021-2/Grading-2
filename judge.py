@@ -132,8 +132,7 @@ class Instance:
         for name, test in self.test_results["positive_tests"].items():
             s += "  + {}: {} (sols: {} time: {})\n".format(
                 name,
-                colored_status(test["status"],
-                               expected=clingo.Status.SATISFIABLE),
+                colored_status(test["status"], expected=clingo.Status.SATISFIABLE),
                 len(test["solutions"]),
                 colored_time(test["time"]),
             )
@@ -164,8 +163,7 @@ class Instance:
         for name, test in self.test_results["negative_tests"].items():
             s += "  - {}: {} (sols: {} time: {})\n".format(
                 name,
-                colored_status(test["status"],
-                               expected=clingo.Status.UNSATISFIABLE),
+                colored_status(test["status"], expected=clingo.Status.UNSATISFIABLE),
                 len(test["solutions"]),
                 colored_time(test["time"]),
             )
@@ -202,10 +200,10 @@ class Instance:
         )
 
         if run["status"] == clingo.Status.UNKNOWN:
-            print("="*100)
+            print("=" * 100)
             print(colored(" ".join(run["args"]), "yellow"))
             print(colored(run, "magenta"))
-            print("="*100)
+            print("=" * 100)
 
         return run
 
@@ -270,40 +268,53 @@ class Instance:
 
         print(colored("Writing '{}'".format(run_output), "cyan"))
 
-        with open(run_output, 'w') as f:
-            json.dump({
-                "instance": self.test_results["instance"],
-                "positive_tests": {
-                    str(k): {
-                        "args": [str(part) for part in v["args"]],
-                        "status": str(v["status"]),
-                        "time": v["time"],
-                        "timeout": v["timeout"],
-                        "solutions": v["solutions"],
-                        "stdout": v["stdout"],
-                        "stderr": v["stderr"],
-                        "verified": v["verified"],
-                        "verifications": v["verifications"],
-                    }
-                    for k, v in self.test_results["positive_tests"].items()
+        with open(run_output, "w") as f:
+            json.dump(
+                {
+                    "instance": self.test_results["instance"],
+                    "positive_tests": {
+                        str(k): {
+                            "args": [str(part) for part in v["args"]],
+                            "status": str(v["status"]),
+                            "time": v["time"],
+                            "timeout": v["timeout"],
+                            "solutions": v["solutions"],
+                            "stdout": v["stdout"],
+                            "stderr": v["stderr"],
+                            "verified": v["verified"],
+                            "verifications": v["verifications"],
+                        }
+                        for k, v in self.test_results["positive_tests"].items()
+                    },
+                    "negative_tests": {
+                        str(k): {
+                            "args": [str(part) for part in v["args"]],
+                            "status": str(v["status"]),
+                            "time": v["time"],
+                            "timeout": v["timeout"],
+                            "solutions": v["solutions"],
+                            "stdout": v["stdout"],
+                            "stderr": v["stderr"],
+                            "verified": v["verified"],
+                            "verifications": v["verifications"],
+                        }
+                        for k, v in self.test_results["negative_tests"].items()
+                    },
+                    "instance_time": self.test_results["instance_time"],
+                    "syntax_errors": (
+                        any(
+                            t["status"] == clingo.Status.SYNTAX_ERROR
+                            for t in self.test_results["positive_tests"].values()
+                        )
+                        or any(
+                            t["status"] == clingo.Status.SYNTAX_ERROR
+                            for t in self.test_results["negative_tests"].values()
+                        )
+                    ),
+                    "tested": self.test_results["tested"],
+                    "passed": self.test_results["passed"],
                 },
-                "negative_tests": {
-                    str(k): {
-                        "args": [str(part) for part in v["args"]],
-                        "status": str(v["status"]),
-                        "time": v["time"],
-                        "timeout": v["timeout"],
-                        "solutions": v["solutions"],
-                        "stdout": v["stdout"],
-                        "stderr": v["stderr"],
-                        "verified": v["verified"],
-                        "verifications": v["verifications"],
-                    }
-                    for k, v in self.test_results["negative_tests"].items()
-                },
-                "instance_time": self.test_results["instance_time"],
-                "tested": self.test_results["tested"],
-                "passed": self.test_results["passed"],
-            }, f)
+                f,
+            )
 
         return self.test_results

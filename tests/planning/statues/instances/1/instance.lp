@@ -1,7 +1,7 @@
 % Statues Secret test 1
 
-%  S G   | % k=10
-%  0|1|  | exec(0, wait), exec(1, move), exec(4, move), exec(6, move), exec(8, move), ...
+%  S G   |
+%  0|1|  | exec(0, wait), exec(1, wait), exec(2, move)
 % --------
 x(0..1).
 
