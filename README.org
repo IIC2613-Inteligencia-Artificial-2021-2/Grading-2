@@ -130,63 +130,37 @@
       jq 'map_values({zeroes, median, deciles})' summary.json
     #+end_src
 
-* Tests
+* Judges
 ** Constraint satisfaction
 *** Dependency Hell
     [[./dh.py]]
     
-    - [[./tests/csat/dep_hell/instances/0/instance.lp]]
-    - [[./tests/csat/dep_hell/instances/1/instance.lp]]
-    - [[./tests/csat/dep_hell/instances/2/instance.lp]]
-    - [[./tests/csat/dep_hell/instances/3/instance.lp]]
-    - [[./tests/csat/dep_hell/instances/4/instance.lp]]
-    - [[./tests/csat/dep_hell/instances/5/instance.lp]]
-    - [[./tests/csat/dep_hell/instances/6/instance.lp]]
+    - [[./tests/csat/dep_hell/instances/]]
 
 ** Planning
 *** Statues
     [[./statues.py]]
 
-    - [[./tests/planning/statues/instances/0/instance.lp]]
-    - [[./tests/planning/statues/instances/1/instance.lp]]
-    - [[./tests/planning/statues/instances/2/instance.lp]]
-    - [[./tests/planning/statues/instances/3/instance.lp]]
-    - [[./tests/planning/statues/instances/4/instance.lp]]
+    - [[./tests/planning/statues/instances/]]
 
 *** Blocks
     [[./blocks.py]]
 
-    - [[./tests/planning/blocks/simple/instances/0/instance.lp]]
-    - [[./tests/planning/blocks/simple/instances/1/instance.lp]]
-    - [[./tests/planning/blocks/simple/instances/2/instance.lp]]
-    - [[./tests/planning/blocks/simple/instances/3/instance.lp]]
-    - [[./tests/planning/blocks/simple/instances/4/instance.lp]]
+    - [[./tests/planning/blocks/simple/instances/]]
 
 *** Blocks multi-agent
     [[./blocks.py]]
 
-    - [[./tests/planning/blocks/multi/instances/0/instance.lp]]
-    - [[./tests/planning/blocks/multi/instances/1/instance.lp]]
-    - [[./tests/planning/blocks/multi/instances/2/instance.lp]]
-    - [[./tests/planning/blocks/multi/instances/3/instance.lp]]
-    - [[./tests/planning/blocks/multi/instances/4/instance.lp]]
+    - [[./tests/planning/blocks/multi/instances/]]
 
 *** Coffee
     [[./coffee.py]]
 
     There's no public tests for this problem.
-    - [[./tests/planning/coffee/simple/instances/1/instance.lp]]
-    - [[./tests/planning/coffee/simple/instances/2/instance.lp]]
-    - [[./tests/planning/coffee/simple/instances/3/instance.lp]]
-    - [[./tests/planning/coffee/simple/instances/4/instance.lp]]
-    - [[./tests/planning/coffee/simple/instances/5/instance.lp]]
+    - [[./tests/planning/coffee/simple/instances/]]
 
 *** Coffee multi-agent
     [[./coffee.py]]
 
     There's no public tests for this problem.
-    - [[./tests/planning/coffee/multi/instances/1/instance.lp]]
-    - [[./tests/planning/coffee/multi/instances/2/instance.lp]]
-    - [[./tests/planning/coffee/multi/instances/3/instance.lp]]
-    - [[./tests/planning/coffee/multi/instances/4/instance.lp]]
-    - [[./tests/planning/coffee/multi/instances/5/instance.lp]]
+    - [[./tests/planning/coffee/multi/instances/]]
