@@ -2,3 +2,6 @@
 !.gitignore
 
 assignments/
+
+full_report.json
+summary.json
