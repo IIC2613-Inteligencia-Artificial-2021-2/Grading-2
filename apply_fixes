@@ -1,0 +1,9 @@
+#!/usr/bin/env fish
+
+for a in $argv
+    set -l hw (basename $a | sed 's#tarea-2-2021-2-##')
+
+    sed --in-place 's/^#show/%!#show/' $a/**/*.lp
+    sed --in-place 's/^#program/%!!!#program/' $a/**/*.lp
+    sed --in-place 's/^#include/%!!!#include/' $a/**/*.lp
+end

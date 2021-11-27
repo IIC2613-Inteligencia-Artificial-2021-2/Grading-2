@@ -4,7 +4,7 @@
 ** Show all the predicates
    Commented all the lines with a ~#show~ declaration,
    #+begin_src fish
-     sed --in-place '.bak' 's/^#show/%#show/' assignments/tarea-2-2021-2-$GITHUB_USER/*.lp
+     ./apply_fixes assignments/tarea-2-2021-2-$GITHUB_USER
    #+end_src
 
 * Issues
