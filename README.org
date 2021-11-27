@@ -28,31 +28,33 @@
    #+end_src
 
 * Grading
-  Get the commit hash
-  #+begin_src fish
-    for d in assignments/tarea-2-2021-2-$GITHUB_USER
-      if test -d $d/.git
-        pushd $d
-        git rev-parse HEAD > info_commit.txt
-        popd
-      end
-    end
-  #+end_src
+** Compute grades
+   Get the commit hash
+   #+begin_src fish
+     for d in assignments/tarea-2-2021-2-$GITHUB_USER
+       if test -d $d/.git
+         pushd $d
+         git rev-parse HEAD > info_commit.txt
+         popd
+       end
+     end
+   #+end_src
 
-  Run the tests,
-  #+begin_src fish
-    ./grade.fish assignments/tarea-2-2021-2-$GITHUB_USER
-  #+end_src
+   Run the tests,
+   #+begin_src fish
+     ./grade.fish assignments/tarea-2-2021-2-$GITHUB_USER
+   #+end_src
 
-  Compute the grades,
-  #+begin_src fish
-    ./collect_grades.py assignments/tarea-2-2021-2-$GITHUB_USER
-  #+end_src
+   Compute the grades,
+   #+begin_src fish
+     ./collect_grades.py assignments/tarea-2-2021-2-$GITHUB_USER
+   #+end_src
 
-  View the grades on [[./full_report.json]],
-  #+begin_src fish
-    jq '.[] | {user: .github_user, scores: .scores}' full_report.json
-  #+end_src
+** View grades
+   View the grades on [[./full_report.json]],
+   #+begin_src fish
+     jq ".$GITHUB_USER | {github_user, commit, total_score, passed_tests, failed_tests, scores}" full_report.json
+   #+end_src
 
 * Judge
 ** Testing procedure
