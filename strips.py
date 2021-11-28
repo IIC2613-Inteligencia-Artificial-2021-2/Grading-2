@@ -2,9 +2,12 @@
 
 import fileinput
 import re
+from collections import defaultdict
+
 
 from termcolor import colored
 from typing import Set
+from logging import LogLevel
 from validator import Validator
 
 # STRIPS
@@ -95,16 +98,13 @@ class StripsValidator(Validator):
 
         # Parse everything
         # In python `exec` is a reserved keyword, so we use `plan` instead.
-        self.plan: List[Dict[Agent, Set[Action]]] = [
-            {agent: set() for agent in self.agents.values()} for _ in self.time
-        ]
-
-        # Add the extra time unit for `holds`
-        self.time.add(self.max_time + 1)
+        self.plan: Dict[int, Dict[Agent, Set[Action]]] = (
+            defaultdict(lambda: {agent: set() for agent in self.agents.values()})
+        )
 
         self.actions: Set[str] = set()
         self.fluents: Set[str] = set()
-        self.holds: List[Set[str]] = [set() for _ in self.time]
+        self.holds: Dict[int, Set[str]] = defaultdict(lambda: set())
         self.start: List[str] = []
         self.goal: List[str] = []
 
@@ -159,6 +159,10 @@ class StripsValidator(Validator):
 
         if len(self.time) == 0:
             logs.append((LogLevel.WARNING, "No time defined!"))
+        if len(self.start) == 0:
+            logs.append((LogLevel.WARNING, "No starting state defined!"))
+        if len(self.goal) == 0:
+            logs.append((LogLevel.WARNING, "No goals defined!"))
         if len(self.plan) == 0:
             logs.append(
                 (LogLevel.WARNING, "Empty plan, No actions executed (`exec` is empty).")
@@ -168,5 +172,5 @@ class StripsValidator(Validator):
 
     def instance_summary(self, sep=", "):
         return "Plan: [{}]".format(
-            sep.join(["{}: {}".format(t, str(i_p)) for t, i_p in enumerate(self.plan)]),
+            sep.join(["{}: {}".format(t, str(self.plan[t])) for t in sorted(self.plan.keys())]),
         )

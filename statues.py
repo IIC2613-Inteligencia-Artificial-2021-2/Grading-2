@@ -43,13 +43,17 @@ class StatuesValidator(StripsValidator):
             if (m := AT_POS.search(f)) is not None:
                 pos = int(m.group("x"))
                 self.start_pos = pos
+
+        if len(self.goal) == 0:
+            raise Exception("No goals, are you using `#show` and hiding it?")
+
         for f in self.goal:
             if (m := AT_POS.search(f)) is not None:
                 pos = int(m.group("x"))
                 self.end_pos = pos
 
         self.unexpected_actions = set()
-        for t, instant_plan in enumerate(self.plan):
+        for t, instant_plan in self.plan.items():
             for agent, actions in instant_plan.items():
                 for a in actions:
                     # Move:
@@ -108,8 +112,8 @@ class StatuesValidator(StripsValidator):
                 )
             )
 
-        for t, plan in enumerate(self.plan):
-            for agent, actions in plan.items():
+        for t, instant_plan in self.plan.items():
+            for agent, actions in instant_plan.items():
                 if len(actions) > 1:
                     logs.append(
                         (
@@ -170,7 +174,7 @@ class StatuesInstance(judge.Instance):
     def verify(self, solution):
         v = StatuesValidator(solution)
         return {
-            "instance_summary": v.instance_summary(),
+            "instance_summary": v.instance_summary(sep="\n" + " "*26),
             "valid": len(solution) > 0 and v.is_valid(),
             "logs": "\n                 > ".join(v.coloured_logs()),
         }

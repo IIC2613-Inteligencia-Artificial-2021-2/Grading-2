@@ -96,7 +96,7 @@ class BlocksValidator(StripsValidator):
                 b = m.group("b")
                 on[a] = b
 
-        for t, instant_plan in enumerate(self.plan):
+        for t, instant_plan in self.plan.items():
             # Check
             moves = dict()
             for agent, actions in instant_plan.items():
