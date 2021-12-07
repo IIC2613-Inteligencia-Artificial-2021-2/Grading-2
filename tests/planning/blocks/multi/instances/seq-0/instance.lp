@@ -15,8 +15,8 @@ block( a
      ; c
      ; d).
 
-start( on(d, table)
-     ; on(c, table)
+start( on(a, table)
+     ; on(b, table)
      ; on(c, table)
      ; on(d, table)).
 
