@@ -29,8 +29,8 @@ PREDICATE = re.compile(r"^(?P<name>\w+)\((?P<args>.*)\)$")
 
 class Action:
     def __init__(self, raw_action):
-        self.name = "(unknown)"
-        self.args = ""
+        self.name = "UNKNOWN_ACTION[{}]".format(raw_action)
+        self.args = "???"
         if (m := PREDICATE.search(raw_action)) is not None:
             self.name = m.group("name")
             self.args = m.group("args")

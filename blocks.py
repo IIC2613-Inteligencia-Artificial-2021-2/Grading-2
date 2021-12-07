@@ -126,9 +126,10 @@ class BlocksValidator(StripsValidator):
                         moves[a] = b
                         check_safe_move(t, agent, a, b, on, logs)
                     else:
-                        raise Exception(
-                            "`move/2` should be the only action. Can't parse '{}'".format(
-                                action
+                        logs.append(
+                            (
+                                LogLevel.WARNING,
+                                "`move/2` should be the only action. Can't parse '{}'".format(action),
                             )
                         )
 
@@ -172,7 +173,7 @@ class BlocksWorldInstance(judge.Instance):
     def verify(self, solution):
         v = BlocksValidator(solution)
         return {
-            "instance_summary": v.instance_summary(sep=",\n                          "),
+            "instance_summary": v.instance_summary(sep="\n" + " "*26),
             "valid": len(solution) > 0 and v.is_valid(),
             "logs": "\n                 > ".join(v.coloured_logs()),
         }

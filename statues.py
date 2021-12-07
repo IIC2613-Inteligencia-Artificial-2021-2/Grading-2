@@ -170,7 +170,7 @@ class StatuesInstance(judge.Instance):
     def verify(self, solution):
         v = StatuesValidator(solution)
         return {
-            "instance_summary": v.instance_summary(),
+            "instance_summary": v.instance_summary(sep="\n" + " "*26),
             "valid": len(solution) > 0 and v.is_valid(),
             "logs": "\n                 > ".join(v.coloured_logs()),
         }

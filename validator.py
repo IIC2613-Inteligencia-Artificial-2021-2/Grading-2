@@ -17,10 +17,10 @@ class Validator:
         self.parsed_predicates: Set[str] = set()
 
         self.valid: Optional[bool] = None
-        self.logs: Optional[List[Tuple[LogLevel, str]]] = None
+        self.logs: List[Tuple[LogLevel, str]] = []
 
     def __str__(self) -> str:
-        if not self.logs:
+        if self.valid is None:
             return "Validator[(Uninitialized)]"
 
         return "Validator[\n{}\n]".format(
@@ -78,7 +78,13 @@ class Validator:
 
     def is_valid(self):
         if self.valid is None:
-            self.validate()
+            try:
+                self.validate()
+            except Exception as e:
+                self.logs.append((LogLevel.WARNING, "Validator failed with {}".format(e)))
+                print("Can't' parse solution:")
+                print("  * " + "\n  * ".join(self.solution))
+                self.valid = None
         return self.valid
 
     def coloured_logs(self):
