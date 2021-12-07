@@ -38,14 +38,5 @@ connected(hallway2, meetingRoom3, doorMeetingRoom3).
 connected(hallway2,     kitchen1, doorKitchen).
 
 
-% Compatibility
-% -------------
-
 % There's only water
 drink(water).
-
-% Doors exist explicitly
-door(Door) :- connected(_, _, Door).
-
-% Allow using has(Room, Drink) or delivered(Room, Drink).
-holds(T, delivered(Room, Drink)) :- holds(T, has(Room, Drink)).

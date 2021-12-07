@@ -43,12 +43,3 @@ drink(water
      ;coffee
      ;tea).
 
-
-% Compatibility
-% -------------
-
-% Doors exist explicitly
-door(Door) :- connected(_, _, Door).
-
-% Allow using has(Room, Drink) or delivered(Room, Drink).
-holds(T, delivered(Room, Drink)) :- holds(T, has(Room, Drink)).

@@ -84,6 +84,7 @@ function grade
     --output_dir $argv/test_results/ \
     --single_agent \
     --base_files $argv/planning/strips.lp \
+                 ./tests/planning/coffee/compat.lp \
                  $argv/planning/coffee/coffee.lp
   set_color blue
   echo "        - Coffee multi-agent"
@@ -94,6 +95,7 @@ function grade
     --output_name coffee-multi \
     --output_dir $argv/test_results/ \
     --base_files $argv/planning/strips-multiagent.lp \
+                 ./tests/planning/coffee/compat.lp \
                  $argv/planning/coffee/coffee-multiagent.lp
 end
 
